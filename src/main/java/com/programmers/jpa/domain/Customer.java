@@ -1,4 +1,4 @@
-package com.programmers.jpa.repository.domain;
+package com.programmers.jpa.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "customers")
 @Getter
 @Setter
-public class CustomerEntity {
+public class Customer {
     @Id
     private long id;
     private String firstName;

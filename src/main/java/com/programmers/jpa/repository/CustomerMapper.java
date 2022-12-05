@@ -1,6 +1,6 @@
 package com.programmers.jpa.repository;
 
-import com.programmers.jpa.repository.domain.Customer;
+import com.programmers.jpa.domain.Customer;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
