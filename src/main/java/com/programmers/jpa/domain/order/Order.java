@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,9 +25,12 @@ public class Order extends BaseEntity {
     @Column(insertable = false, updatable = false)
     private Long memberId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {
@@ -34,5 +38,9 @@ public class Order extends BaseEntity {
         }
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
     }
 }
