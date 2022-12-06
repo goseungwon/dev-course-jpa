@@ -99,7 +99,44 @@ public class PersistenceContextTest {
 
     @Test
     void 조회_db조회() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
 
+        transaction.begin();
+
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("seungwon");
+        customer.setLastName("go");
+        customer.setAge(25);
+
+        entityManager.persist(customer);
+        transaction.commit();
+
+        entityManager.detach(customer);
+
+        Customer selected = entityManager.find(Customer.class, 1L);
+        log.info("{} {}", selected.getLastName(), selected.getFirstName());
     }
 
+    @Test
+    void 조회_1차캐시() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setFirstName("seungwon");
+        customer.setLastName("go");
+        customer.setAge(25);
+
+        entityManager.persist(customer);
+
+        transaction.commit();
+
+        Customer selected = entityManager.find(Customer.class, 1L);
+        log.info("{} {}", selected.getLastName(), selected.getFirstName());
+    }
 }
