@@ -54,4 +54,24 @@ public class ImproveMappingTest {
 
         transaction.commit();
     }
+
+    @Test
+    void id_test() {
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        Parent parent = new Parent();
+        parent.setId1("id1");
+        parent.setId2("id2");
+
+        entityManager.persist(parent);
+
+        transaction.commit();
+
+        entityManager.clear();
+        Parent parent1 = entityManager.find(Parent.class, new ParentId("id1", "id2"));
+        log.info("{} {}", parent1.getId1(), parent1.getId2());
+    }
 }
