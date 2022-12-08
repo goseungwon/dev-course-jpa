@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,15 +23,12 @@ public class Order extends BaseEntity {
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime orderDateTime;
 
-    @Column(insertable = false, updatable = false)
-    private Long memberId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void setMember(Member member) {
         if (Objects.nonNull(this.member)) {

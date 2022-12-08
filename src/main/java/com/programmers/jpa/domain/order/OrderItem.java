@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,17 +19,12 @@ public class OrderItem extends BaseEntity {
     private int price;
     private int quantity;
 
-    @Column(insertable = false, updatable = false)
-    private String orderId;
-    @Column(insertable = false, updatable = false)
-    private Long itemId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem")
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     public void setOrder(Order order) {
         if (Objects.nonNull(this.order)){

@@ -58,16 +58,16 @@ public class OrderPersistenceTest {
         order.setOrderDateTime(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.OPENED);
         order.setMemo("부재시 연락주세요");
-        order.setMemberId(memberEntity.getId());
+//        order.setMemberId(memberEntity.getId());
 
         em.persist(order);
         transaction.commit();
 
         Order orderEntity = em.find(Order.class, order.getUuid());
-        Member orderMemberEntity = em.find(Member.class, orderEntity.getMemberId());
+//        Member orderMemberEntity = em.find(Member.class, orderEntity.getMemberId());
         //객체 중심이라면 객체그래프 설계를 할 수 있어야지 않을까?
 
-        log.info("nick : {}", orderMemberEntity.getNickName());
+//        log.info("nick : {}", orderMemberEntity.getNickName());
     }
 
     @Test
